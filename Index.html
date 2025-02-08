@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Society</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+        :root {
+            --light-bg: #ffffff;
+            --light-text: #000080;
+            --dark-bg: #0d1b2a;
+            --dark-text: #ffffff;
+            --toggle-light: #ccc;
+            --toggle-dark: #6a5acd;
+            --nav-light: #000080;
+            --nav-dark: #6a5acd;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            scroll-behavior: smooth;
+            padding-top: 80px; /* Added padding to avoid nav bar overlap */
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--nav-light);
+            color: white;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+            font-size: 1.4em;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .dark-mode nav {
+            background-color: var(--nav-dark);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-light);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .dark-mode .slider {
+            background-color: var(--toggle-dark);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            opacity: 0;
+            animation: fadeInText 2s ease-out forwards;
+            margin-top: 100px;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: riseUp 2s ease-out forwards;
+        }
+
+        .slogan {
+            font-size: 2.5em;
+            font-weight: 400;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeInText 2s ease-out 1s forwards;
+        }
+
+        .section {
+            padding: 50px;
+            display: block;
+            margin-top: 60px;
+        }
+
+        /* Grid Layout for Members */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust number of columns based on screen size */
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
+        }
+
+        .member-card {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .member-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .member-card:hover {
+            transform: scale(1.05);
+        }
+
+        .member-card h3 {
+            margin: 0;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .member-card p {
+            font-size: 1em;
+            color: #555;
+        }
+        .dark-mode .member-card {
+            background-color: var(--card-dark-bg);
+            color: var(--card-text-dark);
+        }
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes riseUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Gallery Section */
+#gallery {
+    background-color: var(--light-bg);
+    color: var(--light-text);
+    padding: 50px 10px;
+    text-align: center;
+}
+
+.dark-mode #gallery {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+#gallery h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 10px;
+}
+
+.gallery-item {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    height: 250px;  /* Fixed height for square shape */
+}
+
+.dark-mode .gallery-item {
+    background-color: var(--dark-bg);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;  /* Make sure the image fills the container */
+    object-fit: cover;  /* Keep the image aspect ratio intact and cover the square container */
+    border-radius: 5px;
+}
+
+.gallery-item p {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: var(--light-text);
+}
+
+.dark-mode .gallery-item p {
+    color: var(--dark-text);
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#works">Our Works</a>
+            <a href="#members">Our Members</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#feedback">Feedback</a>
+        </div>
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" onclick="toggleDarkMode()">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </nav>
+    <!-- Home Section -->
+    <div class="container" id="home">
+        <img src="CLUB LOGO PNG.png" alt="English Society Logo Light" class="logo" id="logo">
+        <h1>English Society</h1>
+        <p class="slogan">"Fostering a love for literature and language"</p>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about" class="section">
+        <h2>About Us</h2>
+        <p>The English Society is a dynamic hub that brings together students who share a common love for literature, language, and the arts. It serves as a vibrant platform for students to immerse themselves in the rich world of English, offering a diverse range of activities and events that foster creativity, critical thinking, and self-expression. From poetry to prose, from classic works to contemporary voices, the society delves into the depths of the literary world, exploring texts that challenge, inspire, and provoke thought.
+<br>
+            <br>One of the core goals of the English Society is to create an environment where students can connect with others who share their enthusiasm for language and literature. Through regular book discussions, literary debates, and interactive sessions, the society provides opportunities for students to engage with ideas, expand their knowledge, and develop a deeper appreciation for the power of words. These discussions often spark lively debates, where students exchange perspectives, challenge assumptions, and cultivate a broader worldview.
+            <br>
+            <br>In addition to its literary focus, the English Society promotes the development of language skills through various activities such as public speaking, drama, and writing competitions. Public speaking events encourage students to articulate their thoughts with confidence, while drama workshops allow them to explore the world of performance, honing their acting and storytelling abilities. Writing competitions, whether focused on poetry, essays, or short stories, provide students with a platform to showcase their talents and receive recognition for their creative efforts.
+            <br>
+           <br> Moreover, the English Society believes in the power of community and collaboration. It regularly organizes social events and projects that bring students together, building a sense of belonging and camaraderie among members. These events can range from casual social gatherings, where students can share their love for literature, to larger-scale initiatives such as charity book drives, writing workshops, and literary festivals. The society’s aim is to not only promote the appreciation of English literature but also to contribute to the greater good by using literature as a tool for social change and community involvement.
+            <br>
+           <br> Through all of its activities, the English Society aims to cultivate a passion for English that extends beyond the classroom, turning it into a lifelong pursuit. Whether through the exploration of timeless classics, the discovery of new literary voices, or the development of essential language skills, the society provides students with the tools and inspiration to excel in their studies and beyond. Ultimately, the English Society is a space where students can grow intellectually, creatively, and socially, all while celebrating the beauty and power of language.</p>
+    </div>
+
+    <!-- Our Works Section -->
+    <div id="works" class="section">
+        <h2>Our Works</h2>
+        <p>In 2024, the English Society undertook a meaningful book donation drive, encouraging students to contribute old books to support education. This event not only helped promote the spirit of giving but also aimed to make a tangible impact on the educational resources available to others.
+<br><br>
+            Additionally, the society organized two impactful seminars in 2024. One seminar focused on offering students insights into higher education opportunities abroad, in collaboration with esteemed foreign universities. The other, in partnership with USEF Nepal, provided valuable guidance on academic and professional development, opening doors to further growth and learning.
+           <br><br> 
+            Building on this momentum, in 2025, the society hosted a thought-provoking speech competition titled "The Power of Words." This event gave students the opportunity to showcase their public speaking skills and explore the immense influence that words can have in shaping perceptions, inspiring action, and bringing about change. Through these diverse initiatives, the English Society has demonstrated its commitment to fostering academic excellence, nurturing communication skills, and making a positive impact on both the student body and the broader community.</p>
+    </div>
+
+    <!-- Our Members Section -->
+    <div id="members" class="section">
+        <h2>Our Members</h2>
+        <div class="members-grid">
+            <!-- Member Cards (Add images and info here) -->
+            <div class="member-card">
+                <img src="rojina.jpg" alt="President">
+                <h3>President</h3>
+                <p>Rojina Adhikari</p>
+            </div>
+            <div class="member-card">
+                <img src="vice_president1.jpg" alt="Vice President 1">
+                <h3>Vice President</h3>
+                <p>Yunish Khatri</p>
+            </div>
+            <div class="member-card">
+                <img src="Nijam.jpg" alt="Vice President 2">
+                <h3>Vice President</h3>
+                <p>Nijam Karki</p>
+            </div>
+            <div class="member-card">
+                <img src="pragyan.jpg" alt="IT Head">
+                <h3>IT Head</h3>
+                <p>Pragyan Khadka</p>
+            </div>
+            <div class="member-card">
+                <img src="also also biplov.jpg" alt="Web Master">
+                <h3>Web Master</h3>
+                <p>Biplov Katuwal</p>
+            </div>
+            <div class="member-card">
+                <img src="puskar.jpg" alt="Coordinator">
+                <h3>Coordinator</h3>
+                <p>Puskar Joshi</p>
+            </div>
+            <div class="member-card">
+                <img src="suvamshu.jpg" alt="Executive Head">
+                <h3>Treasurer</h3>
+                <p>Suvamshu Khadka</p>
+            </div>
+            <div class="member-card">
+                <img src="executive_head.jpg" alt="Executive Head">
+                <h3>Executive Head</h3>
+                <p>Dilasha Dulal</p>
+            </div>
+            <div class="member-card">
+                <img src="program_incharge.jpg" alt="Program Incharge">
+                <h3>Program Incharge</h3>
+                <p>Cele Shilpakar</p>
+            </div>
+            <div class="member-card">
+                <img src="jenisha.jpg" alt="Secretary">
+                <h3>Secretary</h3>
+                <p>Jenisha Gho Shrestha</p>
+            </div>
+            <div class="member-card">
+                <img src="smriti panday 2.jpg" alt="Advisor">
+                <h3>Advisor</h3>
+                <p>Smriti Panday</p>
+            </div>
+            <div class="member-card">
+                <img src="salena.jpg" alt="Advisor">
+                <h3>Advisor</h3>
+                <p>Salena koirala</p>
+            </div>
+            <div class="member-card">
+                <img src="rozeena.jpg" alt="Advisor">
+                <h3>Advisor</h3>
+                <p>Rozeena Chaudary</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gallery Section -->
+<section id="gallery">
+    <h2>Our Gallery</h2>
+    <div class="gallery-container">
+        <div class="gallery-item">
+            <img src="gallery ko lagi/gallery 1.jpg" alt="Gallery Image 1" class="gallery-image" onclick="openLightbox('gallery ko lagi/gallery 1.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/gallery 2.jpg" alt="Gallery Image 2" class="gallery-image" onclick="openLightbox('gallery ko lagi/gallery 2.jpg.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/gallery 3.jpg" alt="Gallery Image 3" class="gallery-image" onclick="openLightbox('gallery ko lagi/gallery 3.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/4.jpg" alt="Gallery Image 4" class="gallery-image" onclick="openLightbox('gallery ko lagi/4.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/5.jpg" alt="Gallery Image 5"class="gallery-image" onclick="openLightbox('gallery ko lagi/5.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/6.jpg" alt="Gallery Image 6" onclick="openLightbox('gallery ko lagi/6.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/7.jpg" alt="Gallery Image 7" onclick="openLightbox('gallery ko lagi/7.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/8.jpg" alt="Gallery Image 8" onclick="openLightbox('gallery ko lagi/8.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/9.jpg" alt="Gallery Image 9" onclick="openLightbox('gallery ko lagi/9.jpg')">
+        </div>
+        <div class="gallery-item">
+            <img src="gallery ko lagi/10.jpg" alt="Gallery Image 10" onclick="openLightbox('gallery ko lagi/10.jpg')">
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightboxModal" class="lightbox-modal">
+    <span id="close-btn">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="caption"></div>
+</div>
+
+<!-- Add some basic styling -->
+<style>
+    /* Gallery Styles */
+    .gallery-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .gallery-item {
+        width: 200px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: auto;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+    }
+
+    .gallery-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* Lightbox Styles */
+    .lightbox-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+    }
+
+    #close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    #caption {
+        text-align: center;
+        font-size: 18px;
+        color: white;
+        margin-top: 20px;
+    }
+</style>
+
+<!-- Lightbox Modal Script -->
+<script>
+    // Function to open the lightbox with the selected image
+    function openLightbox(imageSrc) {
+        const modal = document.getElementById("lightboxModal");
+        const modalImg = document.getElementById("modalImage");
+
+        modal.style.display = "flex";
+        modalImg.src = imageSrc;
+    }
+
+    // Close the lightbox when the close button is clicked
+    const closeBtn = document.getElementById("close-btn");
+    closeBtn.addEventListener("click", function() {
+        document.getElementById("lightboxModal").style.display = "none";
+    });
+
+    // Close the lightbox if the user clicks outside the image
+    window.addEventListener("click", function(event) {
+        const modal = document.getElementById("lightboxModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+</script>
+
+        <!-- Feedback Section -->
+<section id="feedback">
+    <h2>Feedback</h2>
+    <form id="feedback-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
+        
+        <label for="feedback-message">Your Feedback:</label>
+        <textarea id="feedback-message" name="message" required placeholder="Write your feedback here..."></textarea>
+
+        <button type="submit">Submit Feedback</button>
+    </form>
+</section>
+
+<!-- Add some basic styling -->
+<style>
+    /* Feedback Form Styles */
+    #feedback {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    #feedback-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #feedback-form input, #feedback-form textarea {
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    #feedback-form button {
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    #feedback-form button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<!-- EmailJS Integration -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS
+    emailjs.init('YOUR_USER_ID'); // Replace with your EmailJS User ID
+
+    // Handle feedback form submission
+    document.getElementById("feedback-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("feedback-message").value;
+
+        // Check if email and message are filled
+        if (email && message) {
+            // Send feedback using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                email: email,
+                message: message,
+            })
+            .then(function(response) {
+                alert("Feedback submitted successfully!");
+                document.getElementById("feedback-form").reset(); // Clear the form
+            }, function(error) {
+                alert("Failed to submit feedback. Please try again.");
+            });
+        } else {
+            alert("Please enter both email and feedback.");
+        }
+    });
+</script>
+
+    </div>
+ <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+    <script>
+        function toggleDarkMode() {
+            const slider = document.querySelector('.slider');
+            document.body.classList.toggle("dark-mode");
+            const logo = document.getElementById('logo');
+            const container = document.querySelector('.container');
+            container.style.animation = 'none';
+            void container.offsetWidth;
+            container.style.animation = 'fadeInText 2s ease-out forwards';
+            if (document.body.classList.contains('dark-mode')) {
+                logo.src = 'CLUB LOGO PNG BUT WHITE.png'; 
+            } else {
+                logo.src = 'CLUB LOGO PNG.png';
+            }
+            slider.classList.toggle('active');
+        }
+
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseover', function() {
+                link.style.transform = 'scale(1.1)';
+            });
+            link.addEventListener('mouseout', function() {
+                link.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
